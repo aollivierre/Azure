@@ -1,0 +1,23 @@
+{
+  "VirtualMachineName": {
+    "value": "testVM"
+  },
+  "VirtualNetwork": {
+    "value": "testVnet"
+  },
+  "VirtualNetworkResourceGroup": {
+    "value": "testVnetRG"
+  },
+  "Subnet": {
+    "value": "testsubnet"
+  },
+  "OsDiskName": {
+    "value": "testosDisk"
+  },
+  "NetworkInterfacePrefixName": {
+    "value": "testNICPrefix"
+  },
+  "PublicIpAddressName": {
+    "value": "testPublicIpAddress"
+  }
+}                                                                                         

@@ -1,0 +1,137 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "VirtualMachineName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the to-be restored VM"
+      }
+    },
+    "VirtualNetwork": {
+      "type": "string",
+      "defaultValue": "Outlook1_group-vnet",
+      "metadata": {
+        "description": "VM will be restored to this virtual network"
+      }
+    },
+    "VirtualNetworkResourceGroup": {
+      "type": "string",
+      "defaultValue": "CanPrintEquip_Outlook_RG",
+      "metadata": {
+        "description": "Resource group of Virtual network to which this VM will be restored"
+      }
+    },
+    "Subnet": {
+      "type": "string",
+      "defaultValue": "Outlook1-subnet",
+      "metadata": {
+        "description": "VM will be added to this subnet"
+      }
+    },
+    "OsDiskName": {
+      "type": "string",
+      "defaultValue": "Outlook1OSDisk",
+      "metadata": {
+        "description": "Name of the OS disk"
+      }
+    },
+    "NetworkInterfacePrefixName": {
+      "type": "string",
+      "defaultValue": "Outlook1RestoredNIC",
+      "metadata": {
+        "description": "All network interfaces restored will have names starting with this prefix value"
+      }
+    },
+    "PublicIpAddressName": {
+      "type": "string",
+      "defaultValue": "Outlook1Restoredip",
+      "metadata": {
+        "description": "Name of the public IP address associated with restored VM"
+      }
+    }
+  },
+  "variables": {
+    "VirtualMachineSize": "Standard_B2ms",
+    "VirtualMachineLocation": "canadacentral",
+    "VirtualNetworkId": "[resourceId(parameters('VirtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('VirtualNetwork'))]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'), '/subnets/', parameters('Subnet'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[parameters('PublicIpAddressName')]",
+      "apiVersion": "2016-03-30",
+      "location": "[variables('VirtualMachineLocation')]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(parameters('NetworkInterfacePrefixName'), 'bb73b7be086840a4a5b16e1bcde68a8e')]",
+      "apiVersion": "2016-06-01",
+      "location": "[variables('VirtualMachineLocation')]",
+      "properties": {
+        "primary": true,
+        "ipConfigurations": [
+          {
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIpAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('PublicIpAddressName'))]"
+              },
+              "subnet": {
+                "id": "[variables('SubnetId')]"
+              }
+            },
+            "name": "94727fef56954d9586d78bafa155089f"
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "/subscriptions/408a6c03-bd25-471b-ae84-cf82b3dff420/resourceGroups/CanPrintEquip_Outlook_RG/providers/Microsoft.Network/networkSecurityGroups/Outlook1-nsg"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('PublicIpAddressName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('VirtualMachineName')]",
+      "apiVersion": "2017-03-30",
+      "location": "[variables('VirtualMachineLocation')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('VirtualMachineSize')]"
+        },
+        "storageProfile": {
+          "dataDisks": [],
+          "osDisk": {
+            "osType": "Windows",
+            "caching": "ReadWrite",
+            "createOption": "Attach",
+            "name": "outlook1-osdisk-20201213-011938",
+            "vhd": null,
+            "managedDisk": {
+              "id": "/subscriptions/408a6c03-bd25-471b-ae84-cf82b3dff420/resourceGroups/CanPrintEquip_Outlook1Restored_RG/providers/Microsoft.Compute/disks/outlook1-osdisk-20201213-011938"
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('NetworkInterfacePrefixName'), 'bb73b7be086840a4a5b16e1bcde68a8e'))]",
+              "properties": {
+                "primary": true
+              }
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('NetworkInterfacePrefixName'), 'bb73b7be086840a4a5b16e1bcde68a8e'))]"
+      ]
+    }
+  ]
+}                                                                                                                                                                                                                                                                                        

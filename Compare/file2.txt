@@ -1,0 +1,82 @@
+ResourceGroupName          : CCI_TrueSky1_RG
+Name                       : TrueSky1
+ComputerName               : TrueSky1
+OsName                     : Windows 10 Enterprise for Virtual Desktops
+OsVersion                  : Microsoft Windows NT 10.0.19042.0
+HyperVGeneration           : V1
+BootDiagnostics            :
+  ConsoleScreenshotBlobUri : https://cciesmcrgdiag.blob.core.windows.net/bootdiagnostics-truesky1-a31ef47b-b4a8-4d2d-8969-130695e6ff2e/TrueSky1.a31ef47b-b 
+4a8-4d2d-8969-130695e6ff2e.screenshot.bmp
+  SerialConsoleLogBlobUri  : https://cciesmcrgdiag.blob.core.windows.net/bootdiagnostics-truesky1-a31ef47b-b4a8-4d2d-8969-130695e6ff2e/TrueSky1.a31ef47b-b 
+4a8-4d2d-8969-130695e6ff2e.serialconsole.log
+Disks[0]                   :
+  Name                     : TrueSky1_OSDisk_1_91f4725b-9745-47e7-8975-be42152a2beb
+  Statuses[0]              :
+    Code                   : ProvisioningState/succeeded
+    Level                  : Info
+    DisplayStatus          : Provisioning succeeded
+    Time                   : 2021-02-16 1:42:50 AM
+Extensions[0]              :
+  Name                     : BGInfo
+  Type                     : Microsoft.Compute.BGInfo
+  TypeHandlerVersion       : 2.1
+  Statuses[0]              :
+    Code                   : ProvisioningState/succeeded
+    Level                  : Info
+    DisplayStatus          : Provisioning succeeded
+    Message                : Plugin enabled (handler name: Microsoft.Compute.BGInfo, extension name: , version: 2.1).
+Extensions[1]              :
+  Name                     : JsonADDomainExtension
+  Type                     : Microsoft.Compute.JsonADDomainExtension
+  TypeHandlerVersion       : 1.3.6
+  Substatuses[0]           :
+    Code                   : ComponentStatus/JoinDomainException for Option 3 meaning 'User Specified'/failed/1
+    Level                  : Error
+    DisplayStatus          : Provisioning failed
+    Message                : ERROR - Failed to join domain='Canadacomputing.ca', ou='', user='', option='NetSetupJoinDomain, NetSetupAcctCreate' (#3       
+meaning 'User Specified'). Error code 1355
+  Substatuses[1]           :
+    Code                   : ComponentStatus/JoinDomainException for Option 1 meaning 'User Specified without NetSetupAcctCreate'/failed/1
+    Level                  : Error
+    DisplayStatus          : Provisioning failed
+    Message                : ERROR - Failed to join domain='Canadacomputing.ca', ou='', user='', option='NetSetupJoinDomain' (#1 meaning 'User Specified   
+without NetSetupAcctCreate'). Error code 1355
+  Statuses[0]              :
+    Code                   : ProvisioningState/failed/1
+    Level                  : Error
+    DisplayStatus          : Provisioning failed
+    Message                : Exception(s) occured while joining Domain 'Canadacomputing.ca'
+VMAgent                    :
+  VmAgentVersion           : 2.7.41491.1008
+  ExtensionHandlers[0]     :
+    Type                   : Microsoft.Compute.BGInfo
+    TypeHandlerVersion     : 2.1
+    Status                 :
+      Code                 : ProvisioningState/succeeded
+      Level                : Info
+      DisplayStatus        : Ready
+      Message              : Plugin enabled (handler name: Microsoft.Compute.BGInfo, extension name: , version: 2.1).
+  ExtensionHandlers[1]     :
+    Type                   : Microsoft.Compute.JsonADDomainExtension
+    TypeHandlerVersion     : 1.3.6
+    Status                 : 
+      Code                 : ProvisioningState/NotReady/1009
+      Level                : Info
+      DisplayStatus        : Not Ready
+      Message              : Enable failed for plugin (name: Microsoft.Compute.JsonADDomainExtension, version 1.3.6) with exception Command
+C:\Packages\Plugins\Microsoft.Compute.JsonADDomainExtension\1.3.6\enable.cmd of Microsoft.Compute.JsonADDomainExtension has exited with Exit code: 53      
+  Statuses[0]              :
+    Code                   : ProvisioningState/succeeded
+    Level                  : Info
+    DisplayStatus          : Ready
+    Message                : GuestAgent is running and processing the extensions.
+    Time                   : 2021-02-16 2:17:12 AM
+Statuses[0]                :
+  Code                     : ProvisioningState/succeeded
+  Level                    : Info
+  DisplayStatus            : Provisioning succeeded
+  Time                     : 2021-02-16 2:12:04 AM
+Statuses[1]                :
+  Code                     : PowerState/running
+  Level                    : Info
+  DisplayStatus            : VM running

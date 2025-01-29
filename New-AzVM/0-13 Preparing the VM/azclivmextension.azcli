@@ -1,0 +1,4 @@
+# $VMName = "TrueSky1"
+# $ResourceGroupName = "CCI_TrueSky1_RG"
+
+az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADLoginForWindows --resource-group CCI_TrueSky1_RG --vm-name TrueSky1
